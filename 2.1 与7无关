@@ -1,0 +1,34 @@
+#include <iostream>
+#include <cstdio>
+
+using namespace std;
+
+bool forseven(int n){
+    if(n%7==0)
+        return true;
+    else
+    {
+        int t=n%10;
+        while(n!=0){
+            if (t==7)
+                return true;
+            else
+                n/=10;
+        }
+        return false;
+    }
+}
+
+int main(){
+    int n;
+    cin>>n;
+    int s=0;
+    for(int i=1;i<=n;i++){
+        if(!forseven(i)){
+            int r=i*i;
+            s+=r;
+        }
+    }
+    cout << s << endl; 
+    return 0;
+}
