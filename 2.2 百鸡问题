@@ -1,0 +1,16 @@
+#include <iostream>
+#include <stdio.h>
+
+using namespace std;
+int main(){
+    int n;
+    while(cin>>n){
+            for(int x=0;x<=100;x++){
+                for(int y=0;y<=100-x;y++){//这里y得是100-x
+                    int z=100-x-y;
+                    if(15*x+9*y+1*z<=3*n)
+                    cout<<"x="<<x<<",y="<<y<<",z="<<z<<endl;
+                }
+            }
+    }
+}
