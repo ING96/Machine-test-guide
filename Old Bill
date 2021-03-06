@@ -1,0 +1,30 @@
+#include <iostream>
+#include <stdio.h>
+ 
+using namespace std;
+ 
+ 
+int main(){
+    int N,X,Y,Z;
+    while(cin>>N){
+        cin>>X>>Y>>Z;
+        bool find = false;
+        for(int l=9;l>=1;l--){
+            for(int r=9;r>=0;r--){
+                int total=l*10000+X*1000+Y*100+Z*10+r;
+                if(total%N==0){// 注意这里的判断：==0
+                    cout<<l<<" "<<r<<" "<<total/N<<endl;
+                    find = true;
+                    break;  // 注意这里的break（还有下面的）
+                }     
+            }
+            if(find){
+                break;
+            }
+        }
+        if(!find){
+            cout<<"0"<<endl;
+        }
+    }
+    return 0;
+}
