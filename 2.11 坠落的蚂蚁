@@ -1,0 +1,48 @@
+链接：https://www.nowcoder.com/questionTerminal/fdd6698014c340178a8b1f28ea5fadf8
+来源：牛客网
+
+#include<iostream>
+using namespace std;
+int main(){
+    int n;
+    cin>>n;
+    int p,d;//position, direction
+    int ant[101]={0};
+    int left=0;//向左蚂蚁数
+    int flag=0;//标记A蚂蚁position
+    while(cin>>p>>d){
+        ant[p]=d;//记录所有蚂蚁的位置与方向
+        if(d==-1)
+            left++;//记录向左蚂蚁总数
+        if(d==0)
+            flag=p;
+    }
+    int aleft=0;//A左侧蚂蚁的数量
+    for(p=1;p<flag;p++)
+        if(ant[p]!=0)
+            aleft++;
+    int th=0;//从左向右记录第几个向左/右的蚂蚁
+    if(left<aleft){//如果向左蚂蚁数小于A左侧蚂蚁数，则速度交换的最终结果是A向右运动
+        for(p=1;;p++){//从左向右寻找第aleft-left个向右运动的蚂蚁
+            if(ant[p]==1)
+                th++;
+            if(th==aleft-left){
+                cout<<100-p<<endl;
+                break;
+            }
+        }
+    }
+    else if(left>aleft){//如果向左蚂蚁数大于A左侧蚂蚁数，则速度交换的最终结果是A向左运动
+        for(p=1;;p++){//从左向右寻找第aleft+1个向左运动的蚂蚁
+            if(ant[p]==-1)
+                th++;
+            if(th==aleft+1){
+                cout<<p-0<<endl;
+                break;
+            }
+        }
+    }
+    else//如果向左蚂蚁数等于A左侧蚂蚁数，则速度交换的最终结果是A静止不动
+        cout<<"Cannot fall!"<<endl;
+    return 0;
+}
