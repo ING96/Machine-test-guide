@@ -1,0 +1,60 @@
+#include<iostream>
+#include<math.h>
+using namespace std;
+
+char** fillOutput(char** temp, int n, int size, int q);
+int main()
+{
+    int n, q;
+    while (cin >> n) {
+        if (n == 0) 
+            break;
+        cin.ignore();    //cin.ignore(a,ch)方法是从输入流(cin)中提取字符,提取的字符被忽略(ignore),不被使用。
+        char** temp = new char* [n];    //创建二维数组temp存储template
+        for (int i = 0; i < n; i++) {
+            temp[i] = new char[n];
+        }
+        for (int i = 0; i < n; i++) {            //逐行读取template
+            cin.getline(temp[i], n + (int)1);
+        }
+        cin >> q;
+        int size = (int)pow(n, q);    //n的q次幂
+        char** output = new char* [size];
+        for (int i = 0; i < n; i++) {
+            output[i] = new char[size];
+        }
+        output = fillOutput(temp, n, size, q);
+  
+        for (int i = 0; i < size; i++) {
+            cout << output[i] << endl;
+        }
+    }
+  
+    return 0;
+}
+char** fillOutput(char** temp, int n, int size, int q) {
+    if (q == 1) 
+        return temp;
+    int lowSize = size / n;
+    char** subMatrix = new char* [size];
+    for (int i = 0; i < size; i++) {
+        subMatrix[i] = new char[size];
+    }
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
+            subMatrix[i][j] = ' ';
+        }
+    }
+    for (int i = 0; i < n * lowSize; i += lowSize) {
+        for (int j = 0; j < n * lowSize; j += lowSize) {
+            if (temp[i / lowSize][j / lowSize] == ' ') continue;          
+            char** subsub = fillOutput( temp, n, lowSize, q - 1);
+            for (int m = i; m < i + lowSize; m++) {
+                for (int n = j; n < j + lowSize; n++) {
+                    subMatrix[m][n] = subsub[m - i][n - j];
+                }
+            }
+        }
+    }
+    return subMatrix;
+}
