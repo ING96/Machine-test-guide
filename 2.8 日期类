@@ -1,0 +1,37 @@
+#include <iostream>
+#include <cstdio>
+using namespace std;
+ 
+int monDay[12]={31,28,31,30,31,30,31,31,30,31,30,31};
+class Date
+{
+    private:
+        int year,mon,day;
+    public:
+        void cal()
+        {
+            cin >> year >> mon >> day;
+            if(++day > monDay[mon-1])
+            {
+                mon++;
+                day=1;
+                if(mon > 12)
+                {
+                    year++;
+                    mon=1;
+                }
+            }
+            printf("%d-%02d-%02d\n",year,mon,day);
+        }
+};
+int main()
+{
+    int m;
+    cin >> m;
+    while(m--)//常用格式
+    {
+        Date x;
+        x.cal();
+    }
+    return 0;
+}
