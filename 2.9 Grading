@@ -1,0 +1,32 @@
+#include <iostream>
+#include <stdio.h>
+#include <iomanip>
+#include <math.h>
+using namespace std;
+
+int main(){
+    int P, T, G1, G2, G3, GJ;
+    while(cin>>P>>T>>G1>>G2>>G3>>GJ){
+        double S;
+        if(abs(G1-G2)<=T){
+            S=(double)(G1+G2)/2;
+        }  
+        else{
+            if(abs(G3-G2)<=T && abs(G3-G1)<=T){
+                if(abs(G3-G2)<=T || abs(G3-G1)<=T){
+                    int temp=G3>G2?G3:G2;
+                    S=(double)temp>G1?temp:G1;
+                }
+                else{
+                    int temp=abs(G3-G2)<abs(G3-G1)?G2:G1;
+                    S=(double)(temp+G3)/2;
+                }
+            }
+            else{
+                S=(double)GJ;
+            }
+        }
+        cout<<fixed<<setprecision(1)<<S<<endl;//setprecision有效位数；加fixed变成小数
+    }
+    return 0;
+}
