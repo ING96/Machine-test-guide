@@ -1,0 +1,28 @@
+#include <iostream>
+#include <stdio.h>
+#include <algorithm>
+#include <vector>
+using namespace std;
+int main(){
+    int n;
+    vector<int> nums;
+    while(cin>>n){
+        for(int i=0;i<n;i++){
+        int arn;
+        cin>>arn;
+        nums.push_back(arn);
+        }
+        sort(nums.begin(),nums.end());
+        cout << *prev(nums.end()) << endl;  //取出最后一个元素
+        nums.pop_back();//删除最后一个元素
+        if(nums.size()==0){
+            cout<<"-1"<<endl;
+            return 0;
+        }
+        for (vector<int>::iterator it = nums.begin(); it != nums.end(); it++){ //遍历输出
+            cout << *it << " ";
+        }
+        cout<<endl;
+    }
+    return 0;
+}
