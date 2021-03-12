@@ -1,3 +1,6 @@
+//利用sort进行排序
+//利用vector存储数据
+//vector可用来进行分割
 #include<iostream>
 #include<stdio.h>
 #include<vector>
