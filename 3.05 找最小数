@@ -1,0 +1,32 @@
+//另一种思路是一边输入一边比较
+#include <iostream>
+#include <algorithm>
+#include <vector>
+using namespace std;
+
+struct num{
+    int x;
+    int y;
+};
+
+bool cmp(num a,num b){
+    if(a.x==b.x)
+        return a.y<b.y;
+    else
+        return a.x<b.x;
+}
+
+int main(){
+    vector<num> nums;
+    int n;
+    while(cin>>n){
+        for(int i=0;i<n;i++){
+            num a;
+            cin>>a.x>>a.y;
+            nums.push_back(a);
+        }
+        sort(nums.begin(),nums.end(),cmp);
+        cout<<nums[0].x<<" "<<nums[0].y<<endl;
+    }
+    return 0;
+}
