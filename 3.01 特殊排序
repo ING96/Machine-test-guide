@@ -1,3 +1,4 @@
+//Vector的一些用法：包括排序，迭代器，删除元素，取出最后一个元素等等
 #include <iostream>
 #include <stdio.h>
 #include <algorithm>
