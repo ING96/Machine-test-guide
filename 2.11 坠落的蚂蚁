@@ -1,5 +1,6 @@
-链接：https://www.nowcoder.com/questionTerminal/fdd6698014c340178a8b1f28ea5fadf8
-来源：牛客网
+膜！
+所有蚂蚁速度交换的最终结果类似于速度平移，相对时间是不变的，该掉的总会掉的
+考虑在蚂蚁A左边的蚂蚁数以及向左运动的蚂蚁数，这两个变量的相对大小决定了蚂蚁A的最终运动方向
 
 #include<iostream>
 using namespace std;
