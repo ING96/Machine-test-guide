@@ -1,3 +1,5 @@
+//记住闰年的写法 
+//预处理，以空间换时间
 #include <iostream>
 #include <stdio.h>
 
