@@ -1,3 +1,5 @@
+//一定要赋初值
+//在求余在做差时有可能会出现负数
 #include <iostream>
 #include <stdio.h>
 #include <string.h>
