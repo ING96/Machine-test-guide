@@ -1,0 +1,27 @@
+//string的基本操作：插入insert，删除erase，寻找find
+//对于空格的处理
+#include <iostream>
+#include <string>
+using namespace std;
+int main(){
+    string str1,str2,str3;
+    getline(cin,str1);
+    getline(cin,str2);
+    getline(cin,str3);
+    str1.insert(0," ");//对于空格的处理1
+    str1.insert(str1.size()," ");
+    while(1){
+        int find=str1.find(" "+str2+" ");//对于空格的处理2
+        if(find!=string::npos){
+            str1.erase(find,str2.size()+2);
+            str1.insert(find," "+str3+" ");//对于空格的处理3
+        }
+        else{
+            str1.erase(0,1);//对于空格的处理4
+            str1.erase(str1.size(),0);
+            cout<<str1<<endl;
+            break;
+        }
+    }
+    return 0;
+}
