@@ -1,0 +1,18 @@
+#include <iostream>
+#include <string>
+using namespace std;
+int main(){
+    string s;
+    while(getline(cin,s)){
+        for(int i=0;i<s.size();i++){
+        if(i==0)
+            s[i]=toupper(s[i]);//变大写字母
+        else{
+            if(s[i-1]==' '||s[i-1]=='\t'||s[i-1]=='\r'||s[i-1]=='\n')//前一个位置时空白字符
+                s[i]=toupper(s[i]);
+        }
+    }
+    cout<<s;
+    }
+    return 0;
+}
