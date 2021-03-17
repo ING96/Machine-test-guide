@@ -1,0 +1,57 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+int nextTable[10000];
+
+void GetNextTable(string pattern){
+    int m=pattern.size();
+    int j=0;
+    nextTable[j]=-1;
+    int i=nextTable[j];
+    while(j<m){
+        if(i==-1||pattern[j]==pattern[i]){
+            i++;
+            j++;
+            nextTable[j]=i;
+        }
+        else{
+            i=nextTable[i];
+        }
+    }
+    return;
+}
+int KMP(string test,string pattern){
+    GetNextTable(pattern);
+    int n =test.size();
+    int m=pattern.size();
+    int i=0;
+    int j=0;
+    while(i<n){
+        if(j==-1||test[i]==pattern[j]){
+            i++;
+            j++;
+        }
+        else{
+            j=nextTable[j];
+        }
+    }
+    if(j==m){
+        return i-j+1;
+    }
+    else{
+        return -1;
+    }
+}
+
+int main(){
+    int num;
+    cin>>num;
+    string strs[num+1];
+    while(num--){
+    string pattern,text;
+    cin>>pattern>>text;
+    cout<<KMP(test,pattern));
+    }
+    return 0;
+}
