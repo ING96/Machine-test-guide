@@ -1,1 +1,32 @@
+//参考资料:https://www.cnblogs.com/sgdd123/p/7778599.html
+//不要陷入误区，这种题拿到第一个思路应该就是正则表达式
+//不用KMP，数据量很短
+#include<iostream>
+#include<regex>//正则表达式头文件
+using namespace std;
 
+int main(void)
+{
+    int n;//需要匹配的字符串数
+    string text[1000];//需要匹配的字符串组成的数组
+    while(cin >> n)
+    {
+        for(int i = 0;i < n;i++)//输入
+        {
+            string temp;
+            cin >> temp;
+            text[i] = temp;
+        }
+        string pattern;//模式串
+        cin >> pattern;
+        regex r(pattern,regex::icase);//正则表达式的声明，regex::icase 不区分大小写
+        
+        for(int i = 0;i < n;i++)//开始比较
+        {
+            string temp = text[i];
+            if(regex_match(temp,r))//regex_match完全匹配；不完全匹配用regex_search
+                cout << i + 1 << ' ' << temp << endl;
+        }
+    }
+    return 0;
+}
