@@ -1,0 +1,53 @@
+//这就是正正经经的KMP了
+#include <iostream>
+#include <string>
+using namespace std;
+const int M=10000;
+
+int nextTable[M];
+
+void GetNextTable(string pattern){
+    int m=pattern.size();
+    int j=0;
+    nextTable[j]=-1;
+    int i=nextTable[j];
+    while(j<m){
+        if(i==-1||pattern[j]==pattern[i]){
+            i++;
+            j++;
+            nextTable[j]=i;
+        }
+        else{
+            i=nextTable[i];
+        }
+    }
+    return;
+}
+int KMP(string test,string pattern){
+    GetNextTable(pattern);
+    int n=test.size();
+    int m=pattern.size();
+    int i=0;
+    int j=0;
+    int num=0;
+    while(i<n){
+        if(j==-1||test[i]==pattern[j]){
+            i++;
+            j++;
+        }
+        else{
+            j=nextTable[j];
+        }
+        if(j==m){
+            num++;
+            j=nextTable[j];//这里需要注意，跳到下一个匹配的位置
+        }
+    }
+    return num;
+}
+int main(){
+    string text,pattern;
+    cin>>text>>pattern;
+    cout<<KMP(text,pattern);
+    return 0;
+}
