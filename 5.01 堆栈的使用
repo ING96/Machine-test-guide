@@ -1,0 +1,29 @@
+//没啥大问题
+#include <iostream>
+#include <stack>
+using namespace std;
+int main(){
+    int n;
+    while(cin>>n&&n!=0){
+        char option;
+        stack<int> a;
+        while(n--){
+            cin>>option;
+            if(option=='P'){
+                int i;
+                cin>>i;
+                a.push(i);
+            }
+            if(option=='O' && !a.empty()){
+                a.pop();
+            }
+            if(option=='A'){
+                if(a.empty())
+                    cout<<'E'<<endl;
+                else
+                    cout<<a.top()<<endl;
+            }
+        }
+        cout<<endl;
+    }
+}
