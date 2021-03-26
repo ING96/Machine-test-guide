@@ -1,0 +1,33 @@
+//dec是十进制 如cout<<dec<<b  就会把b转换成10进制再输出
+//hex是16进制 如cout<<hex<<b  就会把b转换成16进制再输出
+//oct是8进制  如cout<<oct<<b  就会把b转换成8进制再输出
+#include <iostream>
+#include <stdio.h>
+using namespace std;
+int main(){
+    int n;
+    while(cin>>n){
+        cout<<oct<<n<<endl;
+    }
+    return 0;
+}
+
+//当然这题考察的也不是这个
+//十进制数x的k进制表示：不断地对x求余（对k）、求商，再逆序输出。
+//反过来，依次计算各个数位上的数字以该位权重的积，再依次累加
+#include <iostream>
+#include <stdio.h>
+using namespace std;
+int main(){
+    int n;
+    while(cin>>n){
+        string result = "";
+        while(n!=0){
+            string a =to_string(n%8);   //to_string：int转string
+            result.insert(0, a);
+            n = n/8;
+        }
+        cout<<result<<endl;
+    }
+    return 0;
+}
