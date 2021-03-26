@@ -1,0 +1,24 @@
+//用unsigned
+#include <iostream>
+#include <stdio.h>
+using namespace std;
+int main(){
+    int m;
+    while(cin>>m){
+        if(m==0)
+            return 0;
+        unsigned a,b;
+        cin>>a>>b;
+        unsigned n=a+b;
+        if(n==0){
+            cout<<0<<endl;
+        }
+        string result="";
+        while(n!=0){
+            string a = to_string(n%m);
+            result.insert(0, a);
+            n = n/m;
+        }
+        cout<<result<<endl;   
+    }
+}
