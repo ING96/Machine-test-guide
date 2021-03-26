@@ -1,0 +1,29 @@
+//负数
+//超过十进制
+//char加到string中
+class Solution {
+public:
+    /**
+     * 进制转换
+     * @param M int整型 给定整数
+     * @param N int整型 转换到的进制
+     * @return string字符串
+     */
+    string solve(int num, int N) {
+        if (num == 0) return "0";
+        int sign = 1;
+        if (num < 0) {    //负数需要考虑
+            sign = -1;
+            num = - num;
+        }
+        string code = "0123456789ABCDEF";    //超过十进制的表示方法
+        string ans;
+        while (num != 0) {
+            char a = code[num % N];
+            ans=a+ans; //char加到string中
+            num = num / N;
+        }
+        if (sign == -1) ans.insert(0, "-");
+        return ans;
+    }
+};
