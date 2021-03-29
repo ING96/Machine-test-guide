@@ -1,0 +1,29 @@
+//逆用素数的性质（活学活用）
+//若一个数不是素数，则必然存在一个小于他的素数为其因数
+//即：如果一个数，从遍历所有比他小的素数，如果没有他的因数，那他就是素数
+#include <iostream>
+#include <vector>
+using namespace std;
+int main()
+{
+    int k[10001];
+    int n,i,j;
+    k[1]=2;
+    k[2]=3;
+    for(i=3;i<10001;i++)
+    {
+        k[i]=k[i-1]+2;
+        for(j=1;j<i;j++)
+        {
+            if(k[i]%k[j]==0)
+            {
+                k[i]+=2;
+                j=1;
+            }
+        }
+    }
+    while(cin>>n)
+    {
+        cout<<k[n]<<endl;
+    }
+}
