@@ -1,0 +1,90 @@
+#include <iostream>
+#include <vector>
+#include <cmath>
+#include <algorithm>
+using namespace std;
+const int MAXN=1010;
+const int INF=(1<<31)-1;
+//素数筛
+bool p[MAXN]={false};//未被筛选
+vector<int> prime;
+void getPrime()
+{
+    p[0]=p[1]=true;//是素数
+    for(int i=2;i<MAXN;i++)
+    {
+        if(p[i]==false)//未被筛去，是素数
+        {
+            prime.push_back(i);
+            for(int j=i+i;j<MAXN;j+=i)
+                p[j]=true;
+        }
+    }
+}
+
+int nFac[MAXN]={0};//记录n!的质因数分解后的结果，n!存在质因数i，则aFac[i]=指数
+int aFac[MAXN]={0};//记录a的质因数分解的结果，a存在质因数i，则aFac[i]=指数
+//对n!质因子分解
+void getnFac(int n)
+{
+    for(int i=0;prime[i]<=n;i++)
+    {
+        int pow=0;
+        int tempn=n;
+        while(n!=0)
+        {
+            pow+=n/prime[i];
+            n/=prime[i];
+        }
+        nFac[prime[i]]=pow;
+        n=tempn;//还原n
+    }
+}
+//对a质因子分解
+int getaFac(int a)
+{
+    int ans=INF;
+    int sqr=sqrt((double)a);
+    for(int i=0;prime[i]<=sqr;i++)
+    {
+        while(a%prime[i]==0)
+        {
+            aFac[prime[i]]++;
+            a=a/prime[i];
+        }
+        //prime[i]是a的质因子
+        if(aFac[prime[i]]>0)
+        {
+            //prime[i]不是n!的质因子
+            if(nFac[prime[i]]==0)
+                ans=0;
+            //取相同质因子的指数相除最小的
+            else if(nFac[prime[i]]/aFac[prime[i]]<ans)
+                ans=nFac[prime[i]]/aFac[prime[i]];
+        }
+        if(a==1)
+            break;
+    }
+    if(a!=1)
+    {
+        //剩下一个大于根号a的数是a的质因子
+        aFac[a]++;
+        //剩下一个大于根号a的数不是n!的质因子
+        if(nFac[a]==0)
+            ans=0;
+        //取相同质因子的指数相减最小的
+        else if(nFac[a]/aFac[a]<ans)
+            ans=nFac[a]/aFac[a];
+    }
+    return ans;
+}
+int main()
+{
+    int n,a;
+    cin>>n>>a;
+    getPrime();
+    getnFac(n);
+    int ans=getaFac(a);
+    cout<<ans<<endl;
+    return 0;
+}
