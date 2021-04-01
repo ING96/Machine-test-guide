@@ -1,0 +1,41 @@
+//1.
+//多项式先乘方再取系数和(先乘再去掉k) 与 先取系数和再乘方(先去掉k再乘) ，结果是一样的(因为有没有k并不影响系数间的相乘，也不影响相乘之后的求和)
+//故可得到：
+//root(x, y, k) = root((root(x, y / 2, k))^2, 1, k)， y为偶数
+//root(x, y, k) = root((root(x, y / 2, k))^2 * root(x, 1, k), 1, k)， y为非1的奇数
+//root(x, 1, k) = x % k + x / k % k + ...(大于k的话再重复求root)
+//2. 
+//由各种递推得出： 
+//res=N%(k-1)    N=a^b 
+//这里使用第二种方法,需要用到快速幂
+
+#include<iostream>
+using namespace std;
+typedef long long ll;
+//迭代求x^y%k
+#include<iostream>
+using namespace std;
+long long root(long long x,long long y,long long k){
+    long long res=1;
+    while(y!=0){
+        if(y%2==1){
+            res*=x;
+            res%=k;
+        }
+        y/=2;
+        x*=x;
+        x%=k;
+    }
+    if(res)//模不为0返回模
+        return res;
+    else//模为0返回k
+        return k;
+}
+
+int main(){
+    long long x,y,k;
+    while(cin>>x>>y>>k){
+        cout<<root(x,y,k-1)<<endl;
+    }
+    return 0;
+}
