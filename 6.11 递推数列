@@ -1,0 +1,16 @@
+//关于模的性质
+#include <iostream>
+#include <stdio.h>
+using namespace std;
+int main(){
+    int a0,a1,p,q,k;
+    int sum[1000];
+    cin>>a0>>a1>>p>>q>>k;
+    sum[0]=a0;
+    sum[1]=a1;
+    for(int i=2;i<=k;i++)
+    {
+        sum[i]=(p*sum[i-1]+q*sum[i-2])%10000;
+    }
+    cout<<sum[k]<<endl;
+}
