@@ -1,0 +1,24 @@
+//递归求杨辉三角形的每一个值，而不是一行一行求
+#include<iostream>
+#include<stdio.h>
+using namespace std;
+int YangHui(int i,int j){
+    if( j==1 || i==j){
+        return 1;
+    }else{
+        return YangHui(i-1,j-1)+YangHui(i-1,j);
+    }
+    
+}
+int main(){
+    int n;
+    while(cin>>n){
+        for(int i=1;i<=n;i++){
+            for(int j=1;j<=i;j++){
+                cout<<YangHui(i,j)<<" ";
+            }
+            cout<<endl;
+        }
+    }
+    return 0;
+}
