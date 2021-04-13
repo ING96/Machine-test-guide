@@ -1,0 +1,53 @@
+//神奇，当然还是要用递归的方法
+#include <bits/stdc++.h>
+using namespace std;
+int main(){
+    for(string s;cin>>s;cout<<endl){
+        sort(s.begin(),s.end());
+        for(cout<<s<<endl;next_permutation(s.begin(),s.end());cout<<s<<endl);
+    }
+    return 0;
+}
+
+//算法思想：全排列的n皇后问题思路，对问题进行递归实现。
+//只不过将全排列的数字换为字母进行输出即可。
+#include<iostream>
+#include<string.h>
+#include<algorithm>
+using namespace std;
+const int maxn=7;//P为当前排列，hashTable记录x是否已经在p中
+int n,hashTable[maxn]={false};//当前处理排列的index位
+char p[maxn];//储存全排列结果的数组
+void generateP(int index,char str[])
+{
+    if(index==n)//递归边界
+    {
+        for (int i = 0; i <n; ++i)
+        {
+            cout<<p[i];//输出当前排列
+        }
+        cout<<endl;
+        return;
+    }
+    for (int x = 0; x <n; ++x)//枚举1～n，试图将x填入p【index】
+    {
+        if (hashTable[x]==false)//如果x不在p[0]~p[index-1]中
+        {
+            p[index]=str[x];//令p的index位为先，即把str[x]加入当前排列
+            hashTable[x]=true;//记x已经在p中
+            generateP(index+1,str);//处理排列的index+1位
+            hashTable[x]=false;//已处理完p[index]为x的子问题，还原状态
+        }
+    }
+}
+int main(){
+    char str[maxn];
+    while(cin>>str)
+    {
+        n=strlen(str);
+        sort(str,str+n);//将原始数组进行大小排序
+        generateP(0,str);
+        cout<<endl;
+    }
+    return 0;
+}
