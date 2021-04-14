@@ -1,0 +1,43 @@
+//分治法，使用递归的思想，注意点都在下面了，主要是顺序还有+的处理
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void exponentia(int a){
+    int n=a;
+    vector<int> nums;
+    while(n){
+        int i=n%2;
+        nums.push_back(i);
+        n/=2;
+    }//注意此时是逆序
+    int size=nums.size();
+    bool flag=true;
+    for(int i=size-1;i>=0;i--){
+        if(nums[i]==1){
+            if(!flag) {    //第一个是没有+的，后面都有
+                cout << "+";
+            }
+            flag = false;
+            if(i==0){
+            cout << "2(0)";
+            }
+            else if(i==1){
+                cout<<"2";
+            }
+            else{
+                cout<<"2(";
+                exponentia(i);
+                cout<<")";
+            }
+        }
+    }
+}
+
+int main(){
+    int n;
+    while(cin>>n){
+        exponentia(n);
+    }
+    return 0;
+}
