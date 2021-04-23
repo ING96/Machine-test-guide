@@ -1,0 +1,72 @@
+//前序遍历和中序遍历可以唯一确定一棵二叉树，而对二叉排序树而言，相同元素的二叉排序树中序遍历一定相同，而不同元素二叉排序树使用前序遍历就可以发现不相同
+#include <iostream>
+#include <string>
+using namespace std;
+
+struct TreeNode{
+    char data;
+    TreeNode* leftChild;
+    TreeNode* rightChild;
+    TreeNode(char x):data(x),leftChild(NULL),rightChild(NULL){}
+};
+
+TreeNode* Insert(TreeNode* root,char x){
+    if(root==NULL){
+        root=new TreeNode(x);
+    }else if(x<root->data){
+        root->leftChild=Insert(root->leftChild,x);
+    }else if(root->data<x){
+        root->rightChild=Insert(root->rightChild,x);
+    }
+    return root;
+}
+string preorder;
+void PreOrder(TreeNode* root){
+    if(root==NULL){
+        return ;
+    }
+    string b(1,root->data);
+    preorder.append(b);
+    //cout<<preorder<<endl;
+    PreOrder(root->leftChild);
+    PreOrder(root->rightChild);
+    return;
+}
+
+int main(){
+    int n;
+    while(cin>>n){
+        TreeNode* root=NULL;
+        string x;
+        cin>>x;
+        //cout<<x<<endl;
+        for(int i=0;i<x.size();i++){
+            root=Insert(root,x[i]);
+        }
+        string preroot;
+        PreOrder(root);
+        preroot=preorder;
+        preorder.clear();
+        //cout<<"yuanqianxu:"<<preroot<<endl;
+        for(int i=0;i<n;i++){
+            TreeNode* tree=NULL;
+            string x;
+            cin>>x;
+            //cout<<x<<endl;
+            for(int j=0;j<x.size();j++){
+                tree=Insert(tree,x[j]);
+            }
+            //cout<<"chashuyouchenggong"<<endl;
+            preorder.clear();
+            PreOrder(tree);
+            //cout<<"bijiaoqianxu:"<<preorder<<endl;
+            if(preroot==preorder){
+                cout<<"YES"<<endl;
+            }
+            else{
+                cout<<"NO"<<endl;
+            }
+        }       
+    }
+    return 0;
+}
