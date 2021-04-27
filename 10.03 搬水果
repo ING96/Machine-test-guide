@@ -1,0 +1,30 @@
+//就是哈夫曼树sa
+#include <iostream>
+#include <stdio.h>
+#include <queue>
+
+using namespace std;
+
+int main(){
+    int n;
+    while(cin>>n){
+        int i=0;
+        priority_queue<int,vector<int>,greater<int>> myTreeQ;
+        while(n--){
+            int x;
+            cin>>x;
+            myTreeQ.push(x);
+        }
+        int sum=0;
+        while(myTreeQ.size()>1){
+            int a=myTreeQ.top();
+            myTreeQ.pop();
+            int b=myTreeQ.top();
+            myTreeQ.pop();
+            sum+=a+b;
+            myTreeQ.push(a+b);
+        }
+        cout<<sum<<endl; 
+    }
+    return 0;
+}
