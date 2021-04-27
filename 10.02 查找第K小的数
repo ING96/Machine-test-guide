@@ -1,0 +1,30 @@
+//优先队列
+#include <iostream>
+#include <stdio.h>
+#include <queue>
+#include <string>
+using namespace std;
+
+int main(){
+    int n;
+    while(cin>>n){
+        priority_queue<int,vector<int>,greater<int>> myIntQ; //默认从大到小，加那个Vectoe和greater以后是从小到大
+        while(n--){
+            int x;
+            cin>>x;
+            myIntQ.push(x);
+        }
+        int k;
+        cin>>k;
+        int tmp=myIntQ.top();
+        myIntQ.pop();
+        for(int i=2;i<=k;i++){
+            while(tmp==myIntQ.top())
+                myIntQ.pop();
+            tmp = myIntQ.top();
+            myIntQ.pop();
+        }
+        cout<<tmp<<endl;
+    }
+    return 0;
+}
