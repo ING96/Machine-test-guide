@@ -1,0 +1,29 @@
+//一次正确的感觉就很爽ahhhhh
+#include <iostream>
+#include <map>
+
+using namespace std;
+
+int main(){
+    int n,m;
+    while(cin>>n>>m){
+        map<int,int> person;
+        map<int,int> book;
+        int P;
+        for(int i=0;i<n;i++){
+            cin>>P;
+            person.insert(pair<int,int>(i,P));
+            book[P]++;
+        }
+        for(int i=0;i<n;i++){
+            map<int,int>::iterator CurP=person.find(i);
+            map<int,int>::iterator ans=book.find(CurP->second);
+            if(ans->second==1)
+                cout<<"BeiJu"<<endl;
+            else{
+                cout<<ans->second-1<<endl;
+            }
+        }    
+    }
+    return 0;
+}
