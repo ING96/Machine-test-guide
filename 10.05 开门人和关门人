@@ -1,0 +1,24 @@
+//取巧使用map的字典序和映射特性
+//要注意红黑树自带顺序，因此很多题目都可以用map直接来解
+//注意这里把映射反过来了，告诉我们需要根据题目信息建立正确的映射关系
+//反向迭代器的使用
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    map<string, string> open;
+    map<string, string> close;
+    string tmp1,tmp2,tmp3;
+    int n,i;
+    while (cin>>n) {
+        for ( i = 0; i < n; i++) {
+          cin>>tmp1>>tmp2>>tmp3;
+          open.insert(pair<string,string>(tmp2,tmp1));//插入语法
+          close.insert(pair<string,string>(tmp3,tmp1));
+        }
+        cout<<open.begin()->second;
+        cout<<' ';
+        cout<<close.rbegin()->second; // 反向迭代器的使用
+  }
+  return 0;
+}
