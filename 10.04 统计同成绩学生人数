@@ -1,0 +1,22 @@
+//map的基础应用
+//注意迭代器的用法：::iterator it=...
+#include <iostream>
+#include <map>
+
+using namespace std;
+int main(){
+    int n;
+    while(cin>>n){
+        if(n==0)
+            return 0;
+        map<int,int> sc;
+        int score,goal;
+        for(int i=0;i<n;i++){
+            cin>>score;
+            sc[score]++;
+        }
+        cin>>goal;
+        map<int,int>::iterator it=sc.find(goal);
+        cout<<it->second<<endl;
+    }
+}
