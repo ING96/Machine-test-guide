@@ -1,0 +1,68 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+#define N 27
+int Tree[N];//保存有各个节点的child指针
+bool flag;
+int num;//记录两个结点之间的深度差（辈份数）
+string relation1[3]={"","parent","grandparent"};
+string relation2[3]={"","child","grandchild"};
+void findRoot(int x,int y){//查找操作 y表示可能的子孙
+    int ret,temp;
+    int i=0;//记录查找的代数
+    while(Tree[x]!=-1){
+        i++;
+        if(Tree[x]==y){
+            flag=true;
+            num=i;
+        }
+        x=Tree[x];
+    }
+}
+void initTree(){
+    for(int i=0;i<N;i++){
+        Tree[i]=-1;
+    }
+}
+void run(int n,int m){
+  char str[4],question[3];
+  string result;
+  initTree();
+  for(int i=0;i<n;i++){
+       cin>>str;
+       if(str[1]!='-') Tree[str[1]-'A']=str[0]-'A'; //bug1 信息不全时，不能将-字符转化到Tree数组，因为它只有27个字母的空间大小！
+       if(str[2]!='-') Tree[str[2]-'A']=str[0]-'A';
+  }
+  for(int j=0;j<m;j++){
+       flag=false;
+       cin>>question;
+       findRoot(question[0]-'A',question[1]-'A');//F->A
+       if(flag){
+           if(num<=2) result=relation1[num];
+           else result=relation1[2];
+           for(int i=3;i<=num;i++){
+               result="great-"+result;
+        }
+        cout<<result<<endl;
+        continue;
+     }
+ 
+     findRoot(question[1]-'A',question[0]-'A');//A->F
+       if(flag){
+           if(num<=2) result=relation2[num];
+           else result=relation2[2];
+           for(int i=3;i<=num;i++){
+               result="great-"+result;
+        }
+     }
+       else result='-';
+       cout<<result<<endl;
+  }
+}
+int main(){
+    int n,m;
+    while(cin>>n>>m){
+        run(n,m);
+    }
+    return 0;
+}
