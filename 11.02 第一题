@@ -1,0 +1,31 @@
+//n要开得非常大
+#include <iostream>
+#include <set>
+using namespace std;
+#define N 1000000  
+int Tree[N];
+int findRoot(int x){
+    if(Tree[x]==-1) 
+        return x;
+    Tree[x]=findRoot(Tree[x]);
+    return Tree[x];
+}
+int main(){
+    int a,b;
+    set<int>s; //使用set，有序不重复，nice！
+    for(int i=0;i<N;i++)  //初始化
+        Tree[i]=-1;
+    while(cin>>a>>b){
+        s.insert(a);
+        s.insert(b);
+        a=findRoot(a);
+        b=findRoot(b);
+        if(a!=b) Tree[a]=b;  //a和b的集合之间连通啦
+    }
+    int ans=0;
+    set<int>::iterator it;
+    for(it=s.begin ();it!=s.end ();it++) //迭代器
+        if(Tree[*it]==-1) ans++;
+    cout<<ans<<endl;
+    return 0;
+}
