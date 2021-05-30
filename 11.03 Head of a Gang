@@ -1,0 +1,65 @@
+//我不会，这是抄大佬的
+#include <iostream>
+#include <map>
+#include <algorithm>
+using namespace std;
+#define MaxN 1000
+typedef struct _Cluster 
+{
+    string head; 
+    int mem_cnt, total_wgt;
+}Cluster;
+
+map<string, int> degree; map<string, string> tree;
+
+typedef struct _Ans
+{
+    string head; int mem_cnt;
+    bool operator <(const _Ans& a) const { return head < a.head; }
+}Ans;
+
+string findroot(string name)
+{
+    if (!tree.count(name)) 
+        return name;
+    tree[name] = findroot(tree[name]);
+    return tree[name];
+}
+
+int main()
+{
+    int n = 0, k = 0; map<string, Cluster>::iterator iter;
+    string name1, name2; int wgt = 0; map<string, Cluster> gang; Ans ans[500]; int cnt = 0;
+    while (cin>>n>>k)
+    {
+        tree.clear(); gang.clear(); degree.clear(); cnt = 0;
+        while (n-- && cin >> name1 >> name2 >> wgt)
+        {
+            degree[name1] += wgt; degree[name2] += wgt;
+            string t1 = findroot(name1); string t2 = findroot(name2);
+            if (!gang.count(t1)) { gang[t1].head = t1; gang[t1].mem_cnt = 1; gang[t1].total_wgt = 0; }
+            if (!gang.count(t2)) { gang[t2].head = t2; gang[t2].mem_cnt = 1; gang[t2].total_wgt = 0; }
+            if (t2 != t1)
+            {
+                gang[t1].mem_cnt += gang[t2].mem_cnt; gang[t1].total_wgt = gang[t1].total_wgt + wgt + gang[t2].total_wgt;
+                if (degree[gang[t1].head] < degree[gang[t2].head]) gang[t1].head = gang[t2].head;
+                if (degree[gang[t1].head] < degree[name1]) gang[t1].head = name1;
+                if (degree[gang[t1].head] < degree[name2]) gang[t1].head = name2;
+                tree[t2] = t1; gang.erase(t2);
+            }
+            else
+            {
+                gang[t1].total_wgt += wgt;
+                if (degree[gang[t1].head] < degree[name1]) gang[t1].head = name1;
+                if (degree[gang[t1].head] < degree[name2]) gang[t1].head = name2;
+            }
+        }
+        for (iter = gang.begin(); iter != gang.end(); iter++)
+        {
+            if (iter->second.mem_cnt > 2 && iter->second.total_wgt > k) { ans[cnt].head = iter->second.head; ans[cnt].mem_cnt = iter->second.mem_cnt; ++cnt; }
+        }
+        sort(ans, ans + cnt); cout << cnt << endl;
+        for (int i = 0; i < cnt; ++i) cout << ans[i].head << ' ' << ans[i].mem_cnt << endl;
+    }
+    return 0;
+}
