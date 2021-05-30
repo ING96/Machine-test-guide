@@ -1,0 +1,50 @@
+#include <iostream>
+#include <algorithm>
+#define N 27
+using namespace std;
+int Tree[N];
+int findRoot(int x){
+    if(Tree[x]==-1) 
+        return x;
+    int temp=findRoot(Tree[x]);
+    Tree[x]=temp;
+    return temp;
+}
+struct Edge{
+    int x,y;
+    int cost;
+};
+int cmp(Edge a,Edge b){
+    return a.cost<b.cost;
+}
+
+int main(){
+    int n;
+    while(cin>>n){
+        if(n==0) break;
+        Edge e[300];
+        int cnt,len=0;
+        char x; int cc; char xb;
+        for(int i=0;i<n;i++) //初始化
+            Tree[i]=-1;
+        for(int i=0;i<n-1;i++){
+            cin>>x>>cnt;
+            int aa=x-'A';//字母与数字的变化
+            for(int j=0;j<cnt;j++){
+                cin>>xb>>cc;
+                int bb=xb-'A';
+                e[len].x=aa;e[len].y=bb;e[len].cost=cc;
+                len++;
+            }
+        }
+        sort(e,e+len,cmp);//排序
+        int ans=0;
+        for(int i=0;i<len;i++){
+            int a=findRoot(e[i].x);
+            int b=findRoot(e[i].y);
+            if(a!=b){Tree[a]=b;ans+=e[i].cost;}//合并
+        }
+        cout<<ans<<endl;
+    }
+    return 0;
+}
