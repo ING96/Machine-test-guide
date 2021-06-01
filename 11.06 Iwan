@@ -1,0 +1,56 @@
+#include <iostream>
+#include <fstream>
+using namespace std;
+#define INF 9999999
+const int maxn = 610;
+const int maxm = 10010;
+int n;
+int G[maxn][maxn];
+int leader[maxn];
+ 
+void floyd(){
+    for(int k = 1; k <= n; ++k){
+        for(int i = 1; i <= n; ++i){
+            for(int j = 1; j <= n; ++j){
+                if(G[i][j] > G[i][k] + G[k][j]){
+                    G[i][j] = G[i][k] + G[k][j];
+                }
+            }
+        }
+    }
+}
+ 
+int main(){
+    int m, a, b, c;
+//    freopen("a.txt", "r", stdin);
+    while(cin >> n >> m && n != 0){
+        for(int i = 1; i <= n; ++i){
+            for(int j = 1; j <= n; ++j){
+                if(i == j) G[i][j] = 0;
+                G[i][j] = INF;
+            }
+        }
+        for(int i = 0; i < m; ++i){
+            cin >> a >> b >> c;
+            if(G[a][b] > c){
+                G[a][b] = G[b][a] = c;  //20%的未通过案例来自这句
+            }
+        }
+        for(int i = 1; i <= n; ++i){
+            cin >> leader[i];
+        }
+        for(int i = 1; i <= n; ++i){
+            for(int j = 1; j <= n; ++j){
+                //只要把不在一个阵营的边设置成有向边即可：leader1->deader2通，leader2->leader1不通
+                if(leader[i] == 2 && leader[j] == 1){
+                    G[i][j] = INF;
+                }
+            }
+        }
+        floyd();
+        if(G[1][2] == INF) cout << "-1" << endl;
+        else cout << G[1][2] << endl;
+    }
+ 
+    return 0;
+}
